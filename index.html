@@ -6,53 +6,47 @@
   <meta name="description" content="A responsive frontend clone of the TikTok camera screen using Browser Media APIs.">
   <title>TikTok Camera Clone</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Main mobile camera experience. -->
   <main id="camera-container" aria-label="TikTok camera">
-    <!-- Empty recording progress indicator. -->
     <progress id="progress-bar" value="0" max="100" aria-label="Recording progress">0%</progress>
 
-    <!-- Live browser camera preview. -->
     <section id="live-camera-section" aria-label="Live camera preview">
       <video id="camera-video" autoplay muted playsinline aria-label="Live camera preview">
         Your browser does not support video playback.
       </video>
     </section>
 
-    <!-- Camera controls shown across the top of the preview. -->
     <header id="top-control-bar" aria-label="Camera controls">
       <nav id="top-controls" aria-label="Top camera controls">
-        <button id="close-button" type="button" aria-label="Close camera" title="Close camera"><span aria-hidden="true">✕</span><span>Close</span></button>
-        <button id="flash-button" type="button" aria-label="Toggle flash" title="Toggle flash"><span aria-hidden="true">⚡</span><span>Flash</span></button>
-        <button id="speed-button" type="button" aria-label="Adjust recording speed" title="Adjust recording speed"><span aria-hidden="true">⏩</span><span>Speed</span></button>
-        <button id="beauty-button" type="button" aria-label="Open beauty controls" title="Open beauty controls"><span aria-hidden="true">✨</span><span>Beauty</span></button>
-        <button id="filters-button" type="button" aria-label="Open filters" title="Open filters"><span aria-hidden="true">🎨</span><span>Filters</span></button>
-        <button id="timer-button" type="button" aria-label="Set recording timer" title="Set recording timer"><span aria-hidden="true">⏱️</span><span>Timer</span></button>
-        <button id="green-screen-button" type="button" aria-label="Open green screen" title="Open green screen"><span aria-hidden="true">🟩</span><span>Green Screen</span></button>
-        <button id="upload-button" type="button" aria-label="Upload media" title="Upload media"><span aria-hidden="true">⬆️</span><span>Upload</span></button>
-        <button id="settings-button" type="button" aria-label="Open camera settings" title="Open camera settings"><span aria-hidden="true">⚙️</span><span>Settings</span></button>
+        <button id="close-button" type="button" aria-label="Close camera" title="Close camera"><i class="fa-solid fa-xmark" aria-hidden="true"></i><span class="visually-hidden">Close</span></button>
+        <button id="flash-button" type="button" aria-label="Toggle flash" title="Toggle flash"><i class="fa-solid fa-bolt" aria-hidden="true"></i><span class="visually-hidden">Flash</span></button>
+        <button id="speed-button" type="button" aria-label="Adjust recording speed" title="Adjust recording speed"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span class="visually-hidden">Speed</span></button>
+        <button id="beauty-button" type="button" aria-label="Open beauty controls" title="Open beauty controls"><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span class="visually-hidden">Beauty</span></button>
+        <button id="filters-button" type="button" aria-label="Open filters" title="Open filters"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span class="visually-hidden">Filters</span></button>
+        <button id="timer-button" type="button" aria-label="Set recording timer" title="Set recording timer"><i class="fa-regular fa-clock" aria-hidden="true"></i><span class="visually-hidden">Timer</span></button>
+        <button id="green-screen-button" type="button" aria-label="Open green screen" title="Open green screen"><i class="fa-regular fa-image" aria-hidden="true"></i><span class="visually-hidden">Green Screen</span></button>
+        <button id="upload-button" type="button" aria-label="Upload media" title="Upload media"><i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i><span class="visually-hidden">Upload</span></button>
+        <button id="settings-button" type="button" aria-label="Open camera settings" title="Open camera settings"><i class="fa-solid fa-gear" aria-hidden="true"></i><span class="visually-hidden">Settings</span></button>
       </nav>
     </header>
 
-    <!-- Contextual tools shown down the right edge of the preview. -->
     <aside id="right-toolbar" aria-label="Camera tools">
-      <button id="toolbar-flip-camera-button" type="button" aria-label="Flip camera" title="Flip camera"><span aria-hidden="true">🔄</span><span>Flip Camera</span></button>
-      <button id="effects-button" type="button" aria-label="Open effects" title="Open effects"><span aria-hidden="true">🌟</span><span>Effects</span></button>
-      <button id="templates-button" type="button" aria-label="Open templates" title="Open templates"><span aria-hidden="true">▣</span><span>Templates</span></button>
-      <button id="voice-effects-button" type="button" aria-label="Open voice effects" title="Open voice effects"><span aria-hidden="true">🎙️</span><span>Voice Effects</span></button>
-      <button id="retouch-button" type="button" aria-label="Open retouch controls" title="Open retouch controls"><span aria-hidden="true">💄</span><span>Retouch</span></button>
-      <button id="ai-enhance-button" type="button" aria-label="Use AI Enhance" title="Use AI Enhance"><span aria-hidden="true">🤖</span><span>AI Enhance</span></button>
+      <button id="toolbar-flip-camera-button" type="button" aria-label="Flip camera" title="Flip camera"><i class="fa-solid fa-camera-rotate" aria-hidden="true"></i><span class="visually-hidden">Flip Camera</span></button>
+      <button id="effects-button" type="button" aria-label="Open effects" title="Open effects"><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span class="visually-hidden">Effects</span></button>
+      <button id="templates-button" type="button" aria-label="Open templates" title="Open templates"><i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span class="visually-hidden">Templates</span></button>
+      <button id="voice-effects-button" type="button" aria-label="Open voice effects" title="Open voice effects"><i class="fa-solid fa-microphone" aria-hidden="true"></i><span class="visually-hidden">Voice Effects</span></button>
+      <button id="retouch-button" type="button" aria-label="Open retouch controls" title="Open retouch controls"><i class="fa-solid fa-brush" aria-hidden="true"></i><span class="visually-hidden">Retouch</span></button>
+      <button id="ai-enhance-button" type="button" aria-label="Use AI Enhance" title="Use AI Enhance"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span class="visually-hidden">AI Enhance</span></button>
     </aside>
 
-    <!-- Recording state indicators. -->
     <section id="recording-indicators" aria-label="Recording status">
       <time id="recording-timer" datetime="PT0M0S" hidden>00:00</time>
       <p id="recording-badge" hidden aria-label="Recording in progress">REC</p>
     </section>
 
-    <!-- Primary capture controls and selectable recording modes. -->
     <section id="recording-section" aria-label="Recording controls">
       <nav id="recording-modes" aria-label="Recording modes">
         <button id="photo-mode-button" type="button" aria-label="Select Photo mode" title="Select Photo mode">Photo</button>
@@ -64,16 +58,15 @@
       </nav>
 
       <nav id="capture-controls" aria-label="Capture controls">
-        <button id="gallery-button" type="button" aria-label="Open gallery" title="Open gallery"><span aria-hidden="true">🖼️</span><span>Gallery</span></button>
+        <button id="gallery-button" type="button" aria-label="Open gallery" title="Open gallery"><i class="fa-regular fa-images" aria-hidden="true"></i><span class="visually-hidden">Gallery</span></button>
         <button id="record-button" type="button" aria-label="Start recording" title="Start recording">
           <span id="record-outer-circle" aria-hidden="true"><span id="record-inner-circle"></span></span>
           <span class="visually-hidden">Record</span>
         </button>
-        <button id="flip-camera-button" type="button" aria-label="Flip camera" title="Flip camera"><span aria-hidden="true">🔄</span><span>Flip</span></button>
+        <button id="flip-camera-button" type="button" aria-label="Flip camera" title="Flip camera"><i class="fa-solid fa-camera-rotate" aria-hidden="true"></i><span class="visually-hidden">Flip</span></button>
       </nav>
     </section>
 
-    <!-- Shown after a recording is complete. -->
     <section id="recording-preview" hidden aria-label="Recorded video preview">
       <h2>Recorded Video</h2>
       <video id="recorded-video" controls aria-label="Recorded video preview">
@@ -87,21 +80,18 @@
       </nav>
     </section>
 
-    <!-- Visible until browser camera permission is granted. -->
     <section id="permission-overlay" role="dialog" aria-modal="true" aria-labelledby="permission-heading" aria-describedby="permission-description">
-      <p id="camera-icon" aria-hidden="true">📷</p>
+      <p id="camera-icon" aria-hidden="true"><i class="fa-solid fa-camera"></i></p>
       <h1 id="permission-heading">Allow Camera Access</h1>
       <p id="permission-description">This application requires permission to use your camera.</p>
       <button id="enable-camera-button" type="button" aria-label="Enable camera" title="Enable camera">Enable Camera</button>
     </section>
 
-    <!-- Shown while the browser opens the camera. -->
     <section id="loading-overlay" hidden role="status" aria-live="polite" aria-label="Opening camera">
-      <p id="loading-spinner" aria-hidden="true">◌</p>
+      <p id="loading-spinner" aria-hidden="true"></p>
       <p>Opening Camera...</p>
     </section>
 
-    <!-- Error states, displayed by future camera integration. -->
     <section id="error-message-section" hidden role="alert" aria-live="assertive" aria-label="Camera errors">
       <p id="camera-access-denied-message" hidden>Camera access denied.</p>
       <p id="camera-not-found-message" hidden>Camera not found.</p>
