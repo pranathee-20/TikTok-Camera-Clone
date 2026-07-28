@@ -47,12 +47,8 @@
   let previewSource = "recording";
   let hasCameraPermission = false;
 
-  // The supplied preview element is a video. Add an image sibling only for gallery photos.
-  const galleryImage = document.createElement("img");
-  galleryImage.id = "gallery-image-preview";
-  galleryImage.alt = "Selected gallery image";
-  galleryImage.hidden = true;
-  previewSection.insertBefore(galleryImage, document.getElementById("preview-actions"));
+  // Image previews are mounted only when needed, avoiding Android Chrome hidden-element issues.
+  let imagePreviewContainer = null;
 
   // These actions are added at runtime because the supplied HTML has one shared preview layout.
   const closePreviewButton = document.createElement("button");
@@ -78,6 +74,40 @@
     notFound: document.getElementById("camera-not-found-message"),
     generic: document.getElementById("camera-generic-error-message")
   };
+
+  /** Explicitly mounts an image preview in a dedicated, visible container. */
+  function showImagePreview(url) {
+    clearImagePreview();
+
+    imagePreviewContainer = document.createElement("section");
+    imagePreviewContainer.id = "image-preview-container";
+    imagePreviewContainer.setAttribute("aria-label", "Selected image preview");
+    imagePreviewContainer.style.display = "block";
+    imagePreviewContainer.style.width = "min(100%, 320px)";
+    imagePreviewContainer.style.maxHeight = "58dvh";
+    imagePreviewContainer.style.overflow = "hidden";
+    imagePreviewContainer.style.borderRadius = "20px";
+
+    const image = document.createElement("img");
+    image.id = "gallery-image-preview";
+    image.src = url;
+    image.alt = "Selected gallery image";
+    image.style.display = "block";
+    image.style.width = "100%";
+    image.style.maxHeight = "58dvh";
+    image.style.objectFit = "contain";
+
+    imagePreviewContainer.append(image);
+    previewSection.insertBefore(imagePreviewContainer, previewActions);
+    recordedVideo.style.display = "none";
+  }
+
+  /** Removes the temporary image container and restores the video preview element. */
+  function clearImagePreview() {
+    imagePreviewContainer?.remove();
+    imagePreviewContainer = null;
+    recordedVideo.style.display = "block";
+  }
 
   /** Sets the enabled state of preview actions that require media. */
   function setPreviewActionsEnabled(enabled) {
@@ -234,8 +264,7 @@
     recordedChunks = [];
     recordingBlob = null;
     isImagePreview = false;
-    galleryImage.hidden = true;
-    recordedVideo.hidden = false;
+    clearImagePreview();
     recordedVideo.controls = true;
     setPreviewActionsEnabled(false);
 
@@ -353,9 +382,7 @@
       isImagePreview = true;
       previewSource = "photo";
       replaceRecordingUrl(URL.createObjectURL(blob));
-      galleryImage.src = recordingUrl;
-      galleryImage.hidden = false;
-      recordedVideo.hidden = true;
+      showImagePreview(recordingUrl);
       showPreview();
     }, "image/png");
   }
@@ -429,9 +456,7 @@
     recordedVideo.pause();
     recordedVideo.removeAttribute("src");
     recordedVideo.load();
-    galleryImage.removeAttribute("src");
-    galleryImage.hidden = true;
-    recordedVideo.hidden = false;
+    clearImagePreview();
     recordedVideo.controls = true;
 
     if (recordingUrl) {
@@ -480,12 +505,12 @@
       replaceRecordingUrl(URL.createObjectURL(file));
       previewSource = source;
       isImagePreview = file.type.startsWith("image/");
-      galleryImage.hidden = !isImagePreview;
-      recordedVideo.hidden = isImagePreview;
       recordedVideo.controls = !isImagePreview;
 
       if (isImagePreview) {
-        galleryImage.src = recordingUrl;
+        showImagePreview(recordingUrl);
+      } else {
+        clearImagePreview();
       }
       showPreview();
     }, { once: true });
